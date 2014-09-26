@@ -10,10 +10,6 @@
 angular.module('paulinumApp')
   .controller('MainCtrl', function ($scope, fbutil) {
 
-    $scope.parkinglotsLive = fbutil.syncObject('parkinglots', {limit: 10}).$watch(function(data){
-      console.log(data);
-    });
-
     $scope.parkinglots = {
       "type": "FeatureCollection",
       "features": [
@@ -125,6 +121,30 @@ angular.module('paulinumApp')
       ]
     }
 
+    var lots = fbutil.syncArray('lots',{limit:10});
+    lots.$watch(function(evt){
+      // console.log(evt);
+      var rec = lots.$getRecord(evt.key);
+      // console.log(rec);
+      if (rec.$id == '-JXn8ZwWbmTMCiPEVPxX') {
+        // console.log(rec.parkplatz1);
+        // console.log($scope.parkinglots.features[0].properties.value);
+        $scope.parkinglots.features[0].properties.value = rec.parkplatz1;
+      } else if(rec.$id == '-JXn8bYVAViWgRpTZo10') {
+        // console.log(rec.parkplatz2);
+        // console.log($scope.parkinglots.features[1].properties.value);
+        $scope.parkinglots.features[1].properties.value = rec.parkplatz2;
+      } else if(rec.$id == '-JXn8e1FkBSk15kDi2MQ') {
+        // console.log(rec.parkplatz3);
+        // console.log($scope.parkinglots.features[2].properties.value);
+        $scope.parkinglots.features[2].properties.value = rec.parkplatz3;
+      };
+      $scope.geojson = {
+        data: $scope.parkinglots,
+        style: getStyle
+      }
+    });
+
     angular.extend($scope, {
         center: {
           lat: 51.95950652617502,
@@ -133,16 +153,13 @@ angular.module('paulinumApp')
         },
         defaults: {
           scrollWheelZoom: false
-        },
-        geojson: {
-          data: $scope.parkinglots,
-          style: getStyle
         }
     });
 
     function getStyle(feature) {
+      console.log(feature.properties.value);
       var fillColor;
-      if (feature.properties.value === 0) {
+      if (feature.properties.value == 0) {
         fillColor = 'green';
       } else{
         fillColor = 'red';

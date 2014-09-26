@@ -1,6 +1,6 @@
 <leaflet width="100%" height="480px" center="center" geojson="geojson"></leaflet>
 <br>
-<div ng-model="parkinglotsLive">
+<div ng-model="parkinglots">
   <table border="1" style="width:100%;">
     <thead>
       <tr>
@@ -9,7 +9,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-class="{1:'belegt',0:'frei'}[feature.properties.value]" ng-repeat="feature in parkinglotsLive.features">
+      <tr ng-class="{1:'belegt',0:'frei'}[feature.properties.value]" ng-repeat="feature in parkinglots.features">
         <td>
           {{feature.properties.name}}
         </td>
