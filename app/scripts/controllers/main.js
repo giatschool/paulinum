@@ -82,63 +82,54 @@ angular.module('paulinumApp')
               ]
             ]
           }
-        },
-        {
-          "type": "Feature",
-          "id":2,
-          "properties": {
-            "name":"Parkplatz 3",
-            "value":0
-          },
-          "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-              [
-                [
-                  7.618259489536286,
-                  51.959541235510294
-                ],
-                [
-                  7.618294358253478,
-                  51.95955611093146
-                ],
-                [
-                  7.618337273597716,
-                  51.95952470725875
-                ],
-                [
-                  7.618305087089539,
-                  51.95951148465315
-                ],
-                [
-                  7.618259489536286,
-                  51.959541235510294
-                ]
-              ]
-            ]
-          }
         }
+        // ,
+        // {
+        //   "type": "Feature",
+        //   "id":2,
+        //   "properties": {
+        //     "name":"Parkplatz 3",
+        //     "value":0
+        //   },
+        //   "geometry": {
+        //     "type": "Polygon",
+        //     "coordinates": [
+        //       [
+        //         [
+        //           7.618259489536286,
+        //           51.959541235510294
+        //         ],
+        //         [
+        //           7.618294358253478,
+        //           51.95955611093146
+        //         ],
+        //         [
+        //           7.618337273597716,
+        //           51.95952470725875
+        //         ],
+        //         [
+        //           7.618305087089539,
+        //           51.95951148465315
+        //         ],
+        //         [
+        //           7.618259489536286,
+        //           51.959541235510294
+        //         ]
+        //       ]
+        //     ]
+        //   }
+        // }
       ]
     }
 
     var lots = fbutil.syncArray('lots',{limit:10});
     lots.$watch(function(evt){
-      // console.log(evt);
       var rec = lots.$getRecord(evt.key);
-      // console.log(rec);
-      if (rec.$id == '-JXn8ZwWbmTMCiPEVPxX') {
-        // console.log(rec.parkplatz1);
-        // console.log($scope.parkinglots.features[0].properties.value);
-        $scope.parkinglots.features[0].properties.value = rec.parkplatz1;
-      } else if(rec.$id == '-JXn8bYVAViWgRpTZo10') {
-        // console.log(rec.parkplatz2);
-        // console.log($scope.parkinglots.features[1].properties.value);
-        $scope.parkinglots.features[1].properties.value = rec.parkplatz2;
-      } else if(rec.$id == '-JXn8e1FkBSk15kDi2MQ') {
-        // console.log(rec.parkplatz3);
-        // console.log($scope.parkinglots.features[2].properties.value);
-        $scope.parkinglots.features[2].properties.value = rec.parkplatz3;
-      };
+      if (rec.$id == '-JZmpJeUQ1oA4IM_YDe4') {
+        $scope.parkinglots.features[0].properties.value = rec.value;
+      } else if(rec.$id == '-JZmpMURo799IoF6d1Di') {
+        $scope.parkinglots.features[1].properties.value = rec.value;
+      }
       $scope.geojson = {
         data: $scope.parkinglots,
         style: getStyle
